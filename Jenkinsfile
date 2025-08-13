@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         MONGODB_URI = 'mongodb://localhost:27017/productdb' // Uygulamanın bağlanacağı MongoDB URI
-        APP_PORT = '8080' // Uygulamanın çalışacağı port
-        APP_NAME = 'my-product-app' // Uygulamanın ismi (JAR dosyasının ismi)
+        APP_PORT = '9691' // Uygulamanın çalışacağı port
+        APP_NAME = 'Jenkins1' // Uygulamanın ismi (JAR dosyasının ismi)
         ARTIFACT_PATH = "${APP_NAME}-0.0.1-SNAPSHOT.jar" // Maven'ın üreteceği JAR dosyasının tam adı
     }
 
@@ -12,8 +12,7 @@ pipeline {
         stage('Kodu Çek') {
             steps {
                 echo 'Kaynak kod kontrolünden çekiliyor...'
-                // BURAYI KENDİ GİTHUB KULLANICI ADINLA DEĞİŞTİRDİĞİNDEN EMİN OL!
-                git branch: 'main', url: 'https://github.com/senin-kullanici-adın/my-product-app.git'
+                git branch: 'main', url: 'https://github.com/egem2015/Jenkins1.git'
             }
         }
 
