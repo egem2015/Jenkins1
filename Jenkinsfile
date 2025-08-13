@@ -22,7 +22,7 @@ pipeline {
         stage('Derle ve Test Et') {
             steps {
                 echo 'Maven ile uygulama derleniyor ve test ediliyor...'
-                sh "mvn clean install"
+                sh "mvn clean package"
             }
             post {
                 always {
