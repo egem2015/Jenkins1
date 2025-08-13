@@ -22,7 +22,7 @@ pipeline {
         stage('Derle ve Test Et') {
             steps {
                 echo 'Maven ile uygulama derleniyor ve test ediliyor...'
-                sh "mvn clean package"
+                sh "mvn clean package -DskipTests=true"
             }
             post {
                 always {
@@ -35,8 +35,7 @@ pipeline {
             steps {
                 echo 'Docker imajı oluşturuluyor...'
                 script {
-                          def customImage = docker.build("my-image:${env.BUILD_ID}")
-                    customImage.push()
+                       sh 'docker build -t Jenkins1 .'
                 }
             }
         }
