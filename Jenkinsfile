@@ -35,17 +35,7 @@ pipeline {
             steps {
                 echo 'Docker imajı oluşturuluyor...'
                 script {
-                    dockerfileContent = """
-                        FROM openjdk:17-jdk-slim
-                        VOLUME /tmp
-                        ARG JAR_FILE=target/${ARTIFACT_PATH}
-                        COPY \${JAR_FILE} app.jar
-                        ENV SPRING_DATA_MONGODB_URI=${MONGODB_URI}
-                        ENV SERVER_PORT=${APP_PORT}
-                        EXPOSE ${APP_PORT}
-                        ENTRYPOINT ["java","-jar","/app.jar"]
-                    """.stripIndent()
-                    docker.build("${APP_NAME}:${BUILD_NUMBER}".toLowerCase(), "-f - .").using(stdin: dockerfileContent)
+                    bat 'docker build -t Jenkins1 .'
                 }
             }
         }
