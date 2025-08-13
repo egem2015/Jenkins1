@@ -27,15 +27,15 @@ pipeline {
             }
         }
 
-        stage('Docker İmajını Oluştur') {
-            steps {
-                echo 'Docker imajı oluşturuluyor...'
-                script {
-                       sh 'docker build -t Jenkins1 .'
-                }
-            }
-        }
+  stage('Build docker') {
+                 dockerImage = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
+          }
 
+          stage('Deploy docker'){
+                  echo "Docker Image Tag Name: springboot-deploy:${env.BUILD_NUMBER}"
+                  sh "docker stop springboot-deploy || true && docker rm springboot-deploy || true"
+                  sh "docker run --name springboot-deploy -d -p 8081:8081 springboot-deploy:${env.BUILD_NUMBER}"
+          }
   
 
         stage('Dağıtım Sonrası Sağlık Kontrolü') {
