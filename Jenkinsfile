@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools{
+		maven '3.9.11'
+	}
 
     environment {
         MONGODB_URI = 'mongodb://localhost:27017/productdb' // Uygulamanın bağlanacağı MongoDB URI
