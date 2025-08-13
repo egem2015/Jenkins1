@@ -24,11 +24,6 @@ pipeline {
                 echo 'Maven ile uygulama derleniyor ve test ediliyor...'
                 sh "mvn clean package -DskipTests=true"
             }
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'
-                }
-            }
         }
 
         stage('Docker İmajını Oluştur') {
