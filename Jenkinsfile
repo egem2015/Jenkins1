@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools{
-        maven 'maven1'
-    }
+		maven 'maven1'
+	}
 
     environment {
         MONGODB_URI = 'mongodb://localhost:27017/productdb' // Uygulamanın bağlanacağı MongoDB URI
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Docker imajı oluşturuluyor...'
                 script {
-                    def app = docker.build("${APP_NAME}:${BUILD_NUMBER}".toLowerCase(), ".")
+                    powershell 'docker build -t Jenkins1 .'
                 }
             }
         }
