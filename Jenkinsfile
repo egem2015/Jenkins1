@@ -35,26 +35,13 @@ pipeline {
             steps {
                 echo 'Docker imajı oluşturuluyor...'
                 script {
-                    powershell 'docker build -t Jenkins1 .'
+                          def customImage = docker.build("my-image:${env.BUILD_ID}")
+                    customImage.push()
                 }
             }
         }
 
-        stage('Uygulamayı Dağıt') {
-            steps {
-                echo 'Uygulama dağıtılıyor...'
-                script {
-                    // Önceki çalışan Docker konteynerini durdur ve kaldır (varsa)
-                    sh "docker stop ${APP_NAME} || true"
-                    sh "docker rm ${APP_NAME} || true"
-
-                    // Yeni Docker imajını çalıştır
-                    sh "docker run -d -p ${APP_PORT}:${APP_PORT} --name ${APP_NAME} --network host ${APP_NAME}:${BUILD_NUMBER}".toLowerCase()
-
-                    echo "Uygulama şuraya dağıtıldı: http://localhost:${APP_PORT}/api/products"
-                }
-            }
-        }
+  
 
         stage('Dağıtım Sonrası Sağlık Kontrolü') {
             steps {
